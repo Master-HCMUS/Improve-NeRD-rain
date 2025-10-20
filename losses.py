@@ -61,7 +61,7 @@ class SSIMLoss(nn.Module):
         self.window = self._create_window(window_size, self.channel)
         
     def _gaussian(self, window_size, sigma):
-        gauss = torch.Tensor([torch.exp(-(x - window_size//2)**2/float(2*sigma**2)) for x in range(window_size)])
+        gauss = torch.Tensor([torch.exp(torch.tensor(-(x - window_size//2)**2/float(2*sigma**2))) for x in range(window_size)])
         return gauss/gauss.sum()
     
     def _create_window(self, window_size, channel):
