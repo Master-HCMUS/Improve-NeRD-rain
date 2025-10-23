@@ -347,8 +347,11 @@ class AdaptiveINR(nn.Module):
                 rel_coord[:, :, 0] *= feat.shape[-2]
                 rel_coord[:, :, 1] *= feat.shape[-1]
                 
-                # Combine features
-                inp_mlp = torch.cat([q_feat, rel_coord], dim=-1)  # [1, H*W, C+2]
+                # Get positional encoding for relative coordinates
+                rel_coord_enc = self.positional_encoding(rel_coord, L=L)  # [1, H*W, 4*L]
+                
+                # Combine features: q_feat + rel_coord + rel_coord_enc
+                inp_mlp = torch.cat([q_feat, rel_coord, rel_coord_enc], dim=-1)  # [1, H*W, C+2+4*L]
                 
                 if self.cell_decode:
                     query_cell = cell[q_idx:q_idx+1].unsqueeze(0)  # [1, 1, 2]
