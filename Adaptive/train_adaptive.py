@@ -71,7 +71,7 @@ def train_epoch(model, train_loader, optimizer, criterion, device, writer, epoch
     
     progress_bar = tqdm(train_loader, desc=f"Epoch {epoch+1}")
     
-    for batch_idx, (input_imgs, target_imgs) in enumerate(progress_bar):
+    for batch_idx, (target_imgs, input_imgs, filename) in enumerate(progress_bar):
         input_imgs = input_imgs.to(device)
         target_imgs = target_imgs.to(device)
         
@@ -157,7 +157,7 @@ def validate_epoch(model, val_loader, criterion, device, writer, epoch):
     with torch.no_grad():
         progress_bar = tqdm(val_loader, desc=f"Validation")
         
-        for batch_idx, (input_imgs, target_imgs) in enumerate(progress_bar):
+        for batch_idx, (target_imgs, input_imgs, filename) in enumerate(progress_bar):
             input_imgs = input_imgs.to(device)
             target_imgs = target_imgs.to(device)
             
