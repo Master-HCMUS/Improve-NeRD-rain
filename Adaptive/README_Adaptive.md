@@ -31,6 +31,38 @@ The adaptive approach enhances the original NeRD-Rain model by:
 
 ## Quick Start
 
+### 0. Dataset Setup
+
+First, ensure your dataset is properly configured:
+
+```bash
+# Check if dataset exists and is properly structured
+python Adaptive/dataset_helper.py
+
+# Find datasets in common locations
+python Adaptive/dataset_helper.py --find-datasets
+
+# Check a specific path
+python Adaptive/dataset_helper.py --check-path /path/to/your/dataset
+```
+
+**Expected Dataset Structure:**
+```
+Datasets/
+  Rain200L/
+    train/
+      input/    (rainy images)
+      target/   (clean images)
+    test/
+      input/    (rainy images)  
+      target/   (clean images)
+```
+
+**Common Dataset Locations:**
+- Local: `./Datasets`
+- Google Colab: `/content/Datasets` or `/content/drive/MyDrive/Datasets`
+- Kaggle: `/kaggle/input`
+
 ### 1. Training an Adaptive Model
 
 ```bash

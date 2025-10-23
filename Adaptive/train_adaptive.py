@@ -238,9 +238,26 @@ def main():
     os.makedirs(args.save_dir, exist_ok=True)
     os.makedirs(args.log_dir, exist_ok=True)
     
+    # Validate data path
+    if not os.path.exists(args.data_path):
+        print(f"Error: Data path does not exist: {args.data_path}")
+        print(f"Current working directory: {os.getcwd()}")
+        print(f"Please check if the dataset directory exists or provide correct path with --data_path")
+        print("\nExpected dataset structure:")
+        print("  Datasets/")
+        print("    Rain200L/")
+        print("      train/")
+        print("        input/")
+        print("        target/")
+        print("      test/")
+        print("        input/")
+        print("        target/")
+        return
+    
     # Device setup
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
+    print(f"Data path: {os.path.abspath(args.data_path)}")
     
     # Create model
     model = AdaptiveMultiscaleNet(

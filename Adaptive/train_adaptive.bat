@@ -15,6 +15,26 @@ set LEARNING_RATE=3e-4
 set PATCH_SIZE=256
 set DIM=48
 
+REM Check if dataset exists
+if not exist "%DATA_PATH%" (
+    echo Error: Dataset directory not found: %DATA_PATH%
+    echo Current directory: %CD%
+    echo.
+    echo Please ensure the dataset is available at %DATA_PATH%
+    echo Or modify the DATA_PATH variable in this script.
+    echo.
+    echo Expected structure:
+    echo   Datasets/
+    echo     Rain200L/
+    echo       train/input/
+    echo       train/target/
+    echo       test/input/
+    echo       test/target/
+    echo.
+    pause
+    exit /b 1
+)
+
 REM Adaptive parameters
 set USE_ADAPTIVE_INR=--use_adaptive_inr
 set CONTRAST_METHOD=combined
